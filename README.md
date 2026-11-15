@@ -118,6 +118,10 @@ Before implementing any changes, I reviewed the default domain password policy u
 Get-ADDefaultDomainPasswordPolicy | Format-List
 ```
 
+![Default domain password policy before implementation](evidence/01_Domain_Password_Policy_Before.png)
+
+*The upper output shows the original password baseline. The lower error reflects a lookup before the test account existed.*
+
 ### Observed Baseline
 
 | Password Setting | Existing Configuration |
@@ -152,6 +156,8 @@ CIS-Password-Lab
 
 The OU was used to organize the lab objects and avoid changes to existing accounts.
 
+![Lab organizational unit in ADUC](evidence/02_CIS_Test_OU.png)
+
 ### Step 2: Create a Global Security Group
 
 I created the following group:
@@ -164,6 +170,8 @@ Group Type: Security
 
 This group was designated as the target for the enhanced password policy.
 
+![Global security group creation settings](evidence/03_CIS_Test_Group.png)
+
 ### Step 3: Create a Test User
 
 I created a nonprivileged Active Directory account:
@@ -171,6 +179,8 @@ I created a nonprivileged Active Directory account:
 ```text
 Account Name: CIS-TestUser
 ```
+
+![Test user creation summary](evidence/04_CIS_Test_User.png)
 
 I added the account to the `CIS-Password-Test` global security group.
 
@@ -182,6 +192,10 @@ Using PowerShell:
 Get-ADGroupMember "CIS-Password-Test" |
     Select-Object Name,SamAccountName
 ```
+
+![PowerShell group membership verification](evidence/05_CIS_Group_Membership.png)
+
+![Additional PowerShell group membership output](evidence/Screenshot%202026-11-14%20200945.png)
 
 The command confirmed that the test account was a member of the designated security group.
 
@@ -215,6 +229,8 @@ I created a Password Settings Object with the following configuration:
 | Reversible encryption | Disabled |
 | Assigned security group | CIS-Password-Test |
 
+![Fine-grained password policy settings in ADAC](evidence/06_FGPP_Created.png)
+
 The 20-character requirement was a deliberate scenario-specific enhancement rather than a claim that the CIS Benchmark mandates 20 characters for privileged accounts.
 
 ---
@@ -239,6 +255,8 @@ Get-ADUserResultantPasswordPolicy `
     Format-List Name,MinPasswordLength,Precedence
 ```
 
+![Resultant password policy showing minimum length 20 and precedence 10](evidence/08_FGPP_Resultant_Policy.png)
+
 ### Observed Result
 
 ```text
@@ -261,6 +279,8 @@ I attempted to reset the test account password using a password that did not mee
 
 **Observed result:** Active Directory rejected the password reset and displayed a password-policy requirements error.
 
+![Password reset rejected with a generic policy requirements error](evidence/10_Short_Password_Rejected.png)
+
 The Windows error message is generic and can also occur due to complexity, password history, or other password requirements. Therefore, the error message alone cannot independently establish which specific policy setting caused the rejection.
 
 ### Test 2: Compliant Password
@@ -268,6 +288,8 @@ The Windows error message is generic and can also occur due to complexity, passw
 I performed another password reset using a unique, complex password containing at least 20 characters.
 
 **Observed result:** Active Directory accepted the password change.
+
+![Successful password reset confirmation](evidence/11_Compliant_Password_Accepted.png)
 
 ### Test 3: Verify the Default Domain Policy Remained Unchanged
 
@@ -286,6 +308,8 @@ ComplexityEnabled : True
 PasswordHistoryCount : 24
 ```
 
+![Default domain password baseline after FGPP testing](evidence/09_Domain_Policy_Unchanged.png)
+
 The existing domain password baseline remained unchanged.
 
 ### Test 4: Reconfirm the Resultant Policy
@@ -296,6 +320,8 @@ Finally, I executed:
 Get-ADUserResultantPasswordPolicy CIS-TestUser |
     Select-Object Name,MinPasswordLength,Precedence
 ```
+
+![Final resultant password policy after testing](evidence/12_Resultant_Policy_After_Test.png)
 
 The resulting policy continued to show a 20-character minimum and precedence of 10.
 
@@ -372,7 +398,7 @@ The project demonstrates configuration and validation of a targeted password pol
 
 ## 11. Project Evidence
 
-The following screenshots document implementation and testing in the educational lab. The author confirmed that the visible domain names, hostnames, account names, and infrastructure identifiers are fictional lab data and authorized publication of the original screenshots without redaction. The images are stored unchanged in [`evidence/`](evidence/).
+Screenshots are displayed directly beneath the matching commands, implementation steps, and test descriptions above. The inventory below provides an additional file reference for the educational lab. The author confirmed that the visible domain names, hostnames, account names, and infrastructure identifiers are fictional lab data and authorized publication of the original screenshots without redaction. The images are stored unchanged in [`evidence/`](evidence/).
 
 | Evidence File | Description |
 |---|---|
