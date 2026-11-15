@@ -372,20 +372,24 @@ The project demonstrates configuration and validation of a targeted password pol
 
 ## 11. Project Evidence
 
-The following evidence was collected during implementation and testing. The filenames below form an evidence inventory; screenshots are not included in this README update. Only sanitized copies supplied for publication should be added to the repository.
+The following screenshots document implementation and testing in the educational lab. The author confirmed that the visible domain names, hostnames, account names, and infrastructure identifiers are fictional lab data and authorized publication of the original screenshots without redaction. The images are stored unchanged in [`evidence/`](evidence/).
 
 | Evidence File | Description |
 |---|---|
-| `01_Domain_Password_Policy_Before.png` | Original domain password baseline |
-| `05_CIS_Group_Membership.png` | Test account group membership |
-| `06_FGPP_Created.png` | FGPP configuration in ADAC |
-| `08_FGPP_Resultant_Policy.png` | Resultant FGPP verification |
-| `09_Domain_Policy_Unchanged.png` | Domain-wide policy remains unchanged |
-| `10_Short_Password_Rejected.png` | Noncompliant password rejected |
-| `11_Compliant_Password_Accepted.png` | Compliant password accepted |
-| `12_Resultant_Policy_After_Test.png` | Final resultant policy verification |
+| [01_Domain_Password_Policy_Before.png](evidence/01_Domain_Password_Policy_Before.png) | Original domain password baseline |
+| [05_CIS_Group_Membership.png](evidence/05_CIS_Group_Membership.png) | Test account group membership |
+| [06_FGPP_Created.png](evidence/06_FGPP_Created.png) | FGPP configuration in ADAC |
+| [08_FGPP_Resultant_Policy.png](evidence/08_FGPP_Resultant_Policy.png) | Resultant FGPP verification |
+| [09_Domain_Policy_Unchanged.png](evidence/09_Domain_Policy_Unchanged.png) | Domain-wide policy remains unchanged |
+| [10_Short_Password_Rejected.png](evidence/10_Short_Password_Rejected.png) | Noncompliant password rejected |
+| [11_Compliant_Password_Accepted.png](evidence/11_Compliant_Password_Accepted.png) | Compliant password accepted |
+| [12_Resultant_Policy_After_Test.png](evidence/12_Resultant_Policy_After_Test.png) | Final resultant policy verification |
+| [02_CIS_Test_OU.png](evidence/02_CIS_Test_OU.png) | Lab organizational unit visible in ADUC |
+| [03_CIS_Test_Group.png](evidence/03_CIS_Test_Group.png) | Global security group creation settings |
+| [04_CIS_Test_User.png](evidence/04_CIS_Test_User.png) | Test user creation summary |
+| [Screenshot 2026-11-14 200945.png](evidence/Screenshot%202026-11-14%20200945.png) | Additional group membership verification |
 
-All screenshots should be reviewed and sanitized before publication to avoid exposing unnecessary infrastructure information or credentials.
+These screenshots show lab configuration and observed messages; they do not establish full CIS or NIST compliance. The password rejection message does not identify the specific setting responsible, and the successful reset message does not independently establish password length or complexity. No passwords, GPO backups, or copyrighted CIS Benchmark PDF are included.
 
 ---
 
